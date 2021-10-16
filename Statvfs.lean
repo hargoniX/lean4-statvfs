@@ -36,6 +36,7 @@ structure Statvfs where
   fsid : UInt64
   flag : UInt64
   namemax : UInt64
+  deriving Repr, Inhabited, DecidableEq, BEq
 
 namespace Statvfs
 
@@ -54,12 +55,5 @@ constant of_path (a : @& FilePath) : IO Statvfs
 -/
 @[extern "lean_statvfs_of_handle"]
 constant of_handle (a : @& IO.FS.Handle) : IO Statvfs
-
-instance : Repr Statvfs where
-  reprPrec m prec := Repr.addAppParen
-    (s!"\{ bsize := {m.bsize}, frsize := {m.frsize}, blocks := {m.blocks}, " ++
-     s!"bfree := {m.bfree}, bavail := {m.bavail}, files := {m.files}, " ++
-     s!"ffree := {m.ffree}, favail := {m.favail}, fsid := {m.fsid}, " ++
-     s!"flag := {m.flag}, namemeax := {m.namemax} }" ) prec
 
 end Statvfs
