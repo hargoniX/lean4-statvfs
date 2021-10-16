@@ -1,3 +1,8 @@
+/-
+  Copyright (c) 2021 Henrik Böving. All rights reserved.
+  Released under MIT license as described in the file LICENSE.
+  Authors: Henrik Böving
+-/
 import Statvfs
 
 open System
