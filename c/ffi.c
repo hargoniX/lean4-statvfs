@@ -65,26 +65,6 @@ lean_obj_res lean_statvfs_initialize()
 }
 
 /**
- * The C based constructor of the Lean `Statvfs` type.
- */
-lean_obj_res lean_statvfs_mk(uint64_t bsize, uint64_t frsize, uint64_t blocks, uint64_t bfree, uint64_t bavail, uint64_t files, uint64_t ffree, uint64_t favail, uint64_t fsid, uint64_t flag, uint64_t namemax)
-{
-    statvfs_t *stat = malloc(sizeof(statvfs_t));
-    stat->f_bsize = bsize;
-    stat->f_frsize = frsize;
-    stat->f_blocks = blocks;
-    stat->f_bfree = bfree;
-    stat->f_bavail = bavail;
-    stat->f_files = files;
-    stat->f_ffree = ffree;
-    stat->f_favail = favail;
-    stat->f_fsid = fsid;
-    stat->f_flag = flag;
-    stat->f_namemax = namemax;
-    return statvfs_box(stat);
-}
-
-/**
  * constant Statvfs.of_path (a : @& FilePath) : IO Statvfs
  */
 lean_obj_res lean_statvfs_of_path(b_lean_obj_arg a, lean_obj_arg w)
@@ -121,4 +101,59 @@ lean_obj_res lean_statvfs_of_handle(b_lean_obj_arg a, lean_obj_arg w)
         lean_object *details = lean_mk_string(strerror(err));
         return lean_io_result_mk_error(lean_mk_io_user_error(details));
     }
+}
+
+uint64_t lean_statvfs_bsize(b_lean_obj_arg a, lean_obj_arg w)
+{
+    return statvfs_unbox(a)->f_bsize;
+}
+
+uint64_t lean_statvfs_frsize(b_lean_obj_arg a, lean_obj_arg w)
+{
+    return statvfs_unbox(a)->f_frsize;
+}
+
+uint64_t lean_statvfs_fsid(b_lean_obj_arg a, lean_obj_arg w)
+{
+    return statvfs_unbox(a)->f_fsid;
+}
+
+uint64_t lean_statvfs_flag(b_lean_obj_arg a, lean_obj_arg w)
+{
+    return statvfs_unbox(a)->f_flag;
+}
+
+uint64_t lean_statvfs_namemax(b_lean_obj_arg a, lean_obj_arg w)
+{
+    return statvfs_unbox(a)->f_namemax;
+}
+
+uint64_t lean_statvfs_blocks(b_lean_obj_arg a, lean_obj_arg w)
+{
+    return statvfs_unbox(a)->f_blocks;
+}
+
+uint64_t lean_statvfs_bfree(b_lean_obj_arg a, lean_obj_arg w)
+{
+    return statvfs_unbox(a)->f_bfree;
+}
+
+uint64_t lean_statvfs_bavail(b_lean_obj_arg a, lean_obj_arg w)
+{
+    return statvfs_unbox(a)->f_bavail;
+}
+
+uint64_t lean_statvfs_files(b_lean_obj_arg a, lean_obj_arg w)
+{
+    return statvfs_unbox(a)->f_files;
+}
+
+uint64_t lean_statvfs_ffree(b_lean_obj_arg a, lean_obj_arg w)
+{
+    return statvfs_unbox(a)->f_ffree;
+}
+
+uint64_t lean_statvfs_favail(b_lean_obj_arg a, lean_obj_arg w)
+{
+    return statvfs_unbox(a)->f_favail;
 }

@@ -24,23 +24,9 @@ builtin_initialize initStatvfs
   some of its members. On Linux 64 bit this is just a `UInt64` so
   this structure represents it as one.
 -/
-structure Statvfs where
-  bsize : UInt64
-  frsize : UInt64
-  blocks : UInt64
-  bfree : UInt64
-  bavail : UInt64
-  files : UInt64
-  ffree : UInt64
-  favail : UInt64
-  fsid : UInt64
-  flag : UInt64
-  namemax : UInt64
-  deriving Repr, Inhabited, DecidableEq, BEq
+constant Statvfs : Type
 
 namespace Statvfs
-
-attribute [extern "lean_statvfs_mk"] mk
 
 /--
   Obtains statvfs information of a `FilePath` by internally calling
@@ -55,5 +41,54 @@ constant of_path (a : @& FilePath) : IO Statvfs
 -/
 @[extern "lean_statvfs_of_handle"]
 constant of_handle (a : @& IO.FS.Handle) : IO Statvfs
+
+@[extern "lean_statvfs_bsize"]
+constant bsize (a : @& Statvfs) : UInt64
+
+@[extern "lean_statvfs_frsize"]
+constant frsize (a : @& Statvfs) : UInt64
+
+@[extern "lean_statvfs_fsid"]
+constant fsid (a : @& Statvfs) : UInt64
+
+@[extern "lean_statvfs_flag"]
+constant flag (a : @& Statvfs) : UInt64
+
+@[extern "lean_statvfs_namemax"]
+constant namemax (a : @& Statvfs) : UInt64
+
+@[extern "lean_statvfs_blocks"]
+constant blocks (a : @& Statvfs) : UInt64
+
+@[extern "lean_statvfs_bfree"]
+constant bfree (a : @& Statvfs) : UInt64
+
+@[extern "lean_statvfs_bavail"]
+constant bavail (a : @& Statvfs) : UInt64
+
+@[extern "lean_statvfs_files"]
+constant files (a : @& Statvfs) : UInt64
+
+@[extern "lean_statvfs_ffree"]
+constant ffree (a : @& Statvfs) : UInt64
+
+@[extern "lean_statvfs_favail"]
+constant favail (a : @& Statvfs) : UInt64
+
+instance : Repr Statvfs where
+  reprPrec m prec := Repr.addAppParen
+    ("{" ++
+     s!"bsize := {m.bsize}\n" ++
+     s!"frsize := {m.frsize}\n" ++
+     s!"fsid := {m.fsid}\n" ++
+     s!"flag := {m.flag}\n" ++
+     s!"namemax := {m.namemax}\n" ++
+     s!"blocks := {m.blocks}\n" ++
+     s!"bfree := {m.bfree}\n" ++
+     s!"bavail := {m.bavail}\n" ++
+     s!"files := {m.files}\n" ++
+     s!"ffree := {m.ffree}\n" ++
+     s!"favail := {m.favail}\n" ++
+     "}") prec
 
 end Statvfs
