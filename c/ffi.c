@@ -64,6 +64,9 @@ lean_obj_res lean_statvfs_initialize()
     return lean_io_result_mk_ok(lean_box(0));
 }
 
+/**
+ * The C based constructor of the Lean `Statvfs` type.
+ */
 lean_obj_res lean_statvfs_mk(uint64_t bsize, uint64_t frsize, uint64_t blocks, uint64_t bfree, uint64_t bavail, uint64_t files, uint64_t ffree, uint64_t favail, uint64_t fsid, uint64_t flag, uint64_t namemax)
 {
     statvfs_t *stat = malloc(sizeof(statvfs_t));
@@ -79,19 +82,6 @@ lean_obj_res lean_statvfs_mk(uint64_t bsize, uint64_t frsize, uint64_t blocks, u
     stat->f_flag = flag;
     stat->f_namemax = namemax;
     return statvfs_box(stat);
-}
-
-lean_obj_res lean_statvfs2_of_path(b_lean_obj_arg a, lean_obj_arg w)
-{
-    const char *path = lean_string_cstr(a);
-    statvfs_t *stat = malloc(sizeof(statvfs_t));
-    int err = statvfs(path, stat);
-    if (err == 0) {
-        return lean_io_result_mk_ok(statvfs_box(stat));
-    } else {
-        lean_object *details = lean_mk_string(strerror(errno));
-        return lean_io_result_mk_error(lean_mk_io_user_error(details));
-    }
 }
 
 /**
