@@ -21,24 +21,24 @@ lean_object *statvfs_box(statvfs_t *s)
 {
     lean_object *o;
     o = lean_alloc_ctor(1, 0, 11 * sizeof(uint64_t));
-    lean_ctor_set_uint64(o, 0 * sizeof(uint64_t), s->f_bsize); 
-    lean_ctor_set_uint64(o, 1 * sizeof(uint64_t), s->f_frsize); 
-    lean_ctor_set_uint64(o, 2 * sizeof(uint64_t), s->f_blocks); 
-    lean_ctor_set_uint64(o, 3 * sizeof(uint64_t), s->f_bfree); 
-    lean_ctor_set_uint64(o, 4 * sizeof(uint64_t), s->f_bavail); 
-    lean_ctor_set_uint64(o, 5 * sizeof(uint64_t), s->f_files); 
-    lean_ctor_set_uint64(o, 6 * sizeof(uint64_t), s->f_ffree); 
-    lean_ctor_set_uint64(o, 7 * sizeof(uint64_t), s->f_favail); 
-    lean_ctor_set_uint64(o, 8 * sizeof(uint64_t), s->f_fsid); 
-    lean_ctor_set_uint64(o, 9 * sizeof(uint64_t), s->f_flag); 
-    lean_ctor_set_uint64(o, 10 * sizeof(uint64_t), s->f_namemax); 
+    lean_ctor_set_uint64(o, 0 * sizeof(uint64_t), (uint64_t)s->f_bsize);
+    lean_ctor_set_uint64(o, 1 * sizeof(uint64_t), (uint64_t)s->f_frsize);
+    lean_ctor_set_uint64(o, 2 * sizeof(uint64_t), (uint64_t)s->f_blocks);
+    lean_ctor_set_uint64(o, 3 * sizeof(uint64_t), (uint64_t)s->f_bfree);
+    lean_ctor_set_uint64(o, 4 * sizeof(uint64_t), (uint64_t)s->f_bavail);
+    lean_ctor_set_uint64(o, 5 * sizeof(uint64_t), (uint64_t)s->f_files);
+    lean_ctor_set_uint64(o, 6 * sizeof(uint64_t), (uint64_t)s->f_ffree);
+    lean_ctor_set_uint64(o, 7 * sizeof(uint64_t), (uint64_t)s->f_favail);
+    lean_ctor_set_uint64(o, 8 * sizeof(uint64_t), (uint64_t)s->f_fsid);
+    lean_ctor_set_uint64(o, 9 * sizeof(uint64_t), (uint64_t)s->f_flag);
+    lean_ctor_set_uint64(o, 10 * sizeof(uint64_t), (uint64_t)s->f_namemax);
     return o;
 }
 
 /**
  * Initialize statvfs environment.
  *
- * This function does the following things:
+ * This function does the following things: (Noop at the moment)
  *
  * This function should always be called with `builtin_initialize`.
  */
